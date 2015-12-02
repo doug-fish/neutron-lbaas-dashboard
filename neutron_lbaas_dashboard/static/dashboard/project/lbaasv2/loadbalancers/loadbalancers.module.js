@@ -24,6 +24,7 @@
    * Provides the services and widgets required to support and display the project load
    * balancers v2 panel.
    */
+
   angular
     .module('horizon.dashboard.project.lbaasv2.loadbalancers', [])
     .config(config);

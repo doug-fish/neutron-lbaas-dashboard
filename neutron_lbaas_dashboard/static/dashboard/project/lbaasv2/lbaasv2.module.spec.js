@@ -36,18 +36,18 @@
           spyOn($routeProvider, 'when').and.callThrough();
           spyOn($locationProvider, 'html5Mode').and.callThrough();
         });
-      module('ngRoute')
+      module('ngRoute');
       module('configTest');
-      module('horizon.dashboard.project.lbaasv2')
+      module('horizon.dashboard.project.lbaasv2');
       inject();
     });
 
     it('should use html5 mode', function () {
-      expect($locationProvider.html5Mode).toHaveBeenCalledWith({enabled: true});
+      expect($locationProvider.html5Mode).toHaveBeenCalledWith(true);
     });
 
     it('should route URLs', function () {
-      var base = '/ngloadbalancersv2/';
+      var base = '/project/ngloadbalancersv2/';
       var routes = [
         [
           base,

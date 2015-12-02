@@ -40,6 +40,27 @@ class LoadBalancers(generic.View):
         result = neutronclient(request).list_loadbalancers(tenant_id=tenant_id)
         return {'items': result.get('loadbalancers')}
 
+    @rest_utils.ajax()
+    def post(self, request):
+        """Create a new load balancer.
+
+        """
+        # TODO(jpomero) This will eventually be used for creating more than
+        # just a load balancer, once the wizard supports that. It should
+        # handle creation of the load balancer, a listener/pool, a monitor
+        # and any members. Only the load balancer is required.
+        data = request.DATA
+        loadbalancer = {
+            'name': data['name'],
+            'vip_subnet_id': data['subnet']
+        }
+        if data.get('description'):
+            loadbalancer['description'] = data.get('description')
+        if data.get('ip'):
+            loadbalancer['vip_address'] = data.get('ip')
+        return neutronclient(request).create_loadbalancer(
+            {'loadbalancer': loadbalancer})
+
 
 @urls.register
 class LoadBalancer(generic.View):

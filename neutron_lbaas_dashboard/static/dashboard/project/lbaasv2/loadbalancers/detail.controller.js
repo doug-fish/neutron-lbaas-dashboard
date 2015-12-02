@@ -32,7 +32,13 @@
    *
    * @description
    * Controller for the LBaaS v2 load balancers detail page.
+   *
+   * @param basePath The loadbalancers module base path
+   * @param api The LBaaS v2 API service.
+   * @param $routeParams The angular $routeParams service.
+   * @returns undefined
    */
+
   function LoadBalancerDetailController(basepath, api, $routeParams) {
 
     var ctrl = this;

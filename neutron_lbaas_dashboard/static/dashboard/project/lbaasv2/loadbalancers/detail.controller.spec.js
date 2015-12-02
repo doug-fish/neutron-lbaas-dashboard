@@ -31,8 +31,9 @@
 
     beforeEach(module('horizon.framework.util.http'));
     beforeEach(module('horizon.framework.widgets.toast'));
+    beforeEach(module('horizon.framework.conf'));
     beforeEach(module('horizon.app.core.openstack-service-api'));
-    beforeEach(module('horizon.dashboard.project.lbaasv2.loadbalancers'));
+    beforeEach(module('horizon.dashboard.project.lbaasv2'));
 
     beforeEach(inject(function($injector) {
       loadbalancer = { id: '1234' };

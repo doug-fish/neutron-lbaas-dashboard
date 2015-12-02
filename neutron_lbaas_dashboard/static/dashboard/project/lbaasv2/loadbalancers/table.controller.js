@@ -21,8 +21,10 @@
     .controller('loadBalancersTableController', LoadBalancersTableController);
 
   LoadBalancersTableController.$inject = [
+    '$scope',
     'horizon.dashboard.project.lbaasv2.loadbalancers.basePath',
-    'horizon.app.core.openstack-service-api.lbaasv2'
+    'horizon.app.core.openstack-service-api.lbaasv2',
+    'horizon.dashboard.project.lbaasv2.loadbalancers.actions.batchActions'
   ];
 
   /**
@@ -30,16 +32,25 @@
    * @name LoadBalancersTableController
    *
    * @description
-   * Controller for the LBaaS v2 load balancers table.
-   * Serves as the focal point for table actions.
+   * Controller for the LBaaS v2 load balancers table. Serves as the focal point for table actions.
+   *
+   * @param $scope The angular $scope object.
+   * @param basepath The loadbalancers module base path.
+   * @param api The LBaaS V2 service API.
+   * @param batchActions The load balancer batch actions service.
+   * @returns undefined
    */
-  function LoadBalancersTableController(basepath, api) {
+
+  function LoadBalancersTableController($scope, basepath, api, batchActions) {
 
     var ctrl = this;
     ctrl.items = [];
     ctrl.src = [];
     ctrl.checked = {};
     ctrl.path = basepath;
+
+    ctrl.batchActions = batchActions;
+    ctrl.batchActions.initScope($scope);
 
     init();
 
