@@ -50,11 +50,6 @@
       });
     }
 
-    it('should set path properly', function() {
-      var path = staticUrl + 'dashboard/project/lbaasv2/loadbalancers/';
-      expect(createController().path).toEqual(path);
-    });
-
     it('should invoke lbaasv2 apis', function() {
       createController();
       expect(lbaasv2API.getLoadBalancer).toHaveBeenCalledWith('1234');

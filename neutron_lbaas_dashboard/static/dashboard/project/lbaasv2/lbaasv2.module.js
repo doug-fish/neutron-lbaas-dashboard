@@ -37,23 +37,25 @@
     /* eslint-enable max-len */
 
   config.$inject = [
+    '$provide',
     '$windowProvider',
     '$routeProvider',
     '$locationProvider'
   ];
 
-  function config($windowProvider, $routeProvider, $locationProvider) {
+  function config($provide, $windowProvider, $routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true).hashPrefix('!');
 
-    var base = '/project/ngloadbalancersv2/';
-    var path = $windowProvider.$get().STATIC_URL + 'dashboard/project/lbaasv2/';
+    var href = $windowProvider.$get().WEBROOT + 'project/ngloadbalancersv2/';
+    var basePath = $windowProvider.$get().STATIC_URL + 'dashboard/project/lbaasv2/';
+    $provide.constant('horizon.dashboard.project.lbaasv2.basePath', basePath);
 
     $routeProvider
-      .when(base, {
-        templateUrl: path + 'loadbalancers/table.html'
+      .when(href, {
+        templateUrl: basePath + 'loadbalancers/table.html'
       })
-      .when(base + 'detail/:loadbalancerId', {
-        templateUrl: path + 'loadbalancers/detail.html'
+      .when(href + 'detail/:loadbalancerId', {
+        templateUrl: basePath + 'loadbalancers/detail.html'
       });
   }
 

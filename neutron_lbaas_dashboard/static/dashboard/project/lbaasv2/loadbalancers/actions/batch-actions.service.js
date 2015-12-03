@@ -23,7 +23,7 @@
 
   tableBatchActions.$inject = [
     'horizon.dashboard.project.lbaasv2.loadbalancers.actions.create.modal',
-    'horizon.dashboard.project.lbaasv2.loadbalancers.basePath',
+    'horizon.dashboard.project.lbaasv2.basePath',
     'horizon.app.core.openstack-service-api.policy',
     'horizon.framework.util.i18n.gettext'
   ];
@@ -36,7 +36,7 @@
    * Provides the service for the Load Balancers table batch actions.
    *
    * @param createModal The create action modal service.
-   * @param basePath The loadbalancers module base path.
+   * @param basePath The lbaasv2 module base path.
    * @param policy The horizon policy service.
    * @returns Load balancers table batch actions service object.
    */
@@ -45,7 +45,7 @@
     var actions = [{
       callback: 'table.batchActions.create.open',
       template: {
-        url: basePath + 'actions/create/action.template.html',
+        url: basePath + 'loadbalancers/actions/create/action.template.html',
         text: gettext('Create Load Balancer')
       },
       // This rule is made up and should therefore always pass. I assume at some point there

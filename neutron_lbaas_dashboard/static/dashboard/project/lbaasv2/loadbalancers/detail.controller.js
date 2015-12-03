@@ -21,9 +21,9 @@
     .controller('LoadBalancerDetailController', LoadBalancerDetailController);
 
   LoadBalancerDetailController.$inject = [
-    'horizon.dashboard.project.lbaasv2.loadbalancers.basePath',
     'horizon.app.core.openstack-service-api.lbaasv2',
-    '$routeParams'
+    '$routeParams',
+    '$window'
   ];
 
   /**
@@ -33,17 +33,17 @@
    * @description
    * Controller for the LBaaS v2 load balancers detail page.
    *
-   * @param basePath The loadbalancers module base path
    * @param api The LBaaS v2 API service.
    * @param $routeParams The angular $routeParams service.
+   * @param $window The angular reference to the browser window object.
    * @returns undefined
    */
 
-  function LoadBalancerDetailController(basepath, api, $routeParams) {
+  function LoadBalancerDetailController(api, $routeParams, $window) {
 
     var ctrl = this;
     ctrl.loadbalancer = {};
-    ctrl.path = basepath;
+    ctrl.webroot = $window.webroot;
 
     var loadbalancerId = $routeParams.loadbalancerId;
 

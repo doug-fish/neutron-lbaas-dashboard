@@ -22,22 +22,4 @@
     });
   });
 
-  describe('LBaaS v2 Load Balancers Module Base Path', function () {
-    var basePath, staticUrl;
-
-    beforeEach(module('horizon.dashboard.project.lbaasv2.loadbalancers'));
-    beforeEach(inject(function ($injector) {
-      basePath = $injector.get('horizon.dashboard.project.lbaasv2.loadbalancers.basePath');
-      staticUrl = $injector.get('$window').STATIC_URL;
-    }));
-
-    it('should be defined', function () {
-      expect(basePath).toBeDefined();
-    });
-
-    it('should be correct', function () {
-      expect(basePath).toEqual(staticUrl + 'dashboard/project/lbaasv2/loadbalancers/');
-    });
-  });
-
 })();

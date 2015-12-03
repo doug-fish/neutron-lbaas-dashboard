@@ -18,11 +18,11 @@
 
   angular
     .module('horizon.dashboard.project.lbaasv2.loadbalancers')
-    .controller('loadBalancersTableController', LoadBalancersTableController);
+    .controller('LoadBalancersTableController', LoadBalancersTableController);
 
   LoadBalancersTableController.$inject = [
     '$scope',
-    'horizon.dashboard.project.lbaasv2.loadbalancers.basePath',
+    '$window',
     'horizon.app.core.openstack-service-api.lbaasv2',
     'horizon.dashboard.project.lbaasv2.loadbalancers.actions.batchActions'
   ];
@@ -35,19 +35,19 @@
    * Controller for the LBaaS v2 load balancers table. Serves as the focal point for table actions.
    *
    * @param $scope The angular $scope object.
-   * @param basepath The loadbalancers module base path.
+   * @param $window The angular reference to the browser window object.
    * @param api The LBaaS V2 service API.
    * @param batchActions The load balancer batch actions service.
    * @returns undefined
    */
 
-  function LoadBalancersTableController($scope, basepath, api, batchActions) {
+  function LoadBalancersTableController($scope, $window, api, batchActions) {
 
     var ctrl = this;
     ctrl.items = [];
     ctrl.src = [];
     ctrl.checked = {};
-    ctrl.path = basepath;
+    ctrl.webroot = $window.webroot;
 
     ctrl.batchActions = batchActions;
     ctrl.batchActions.initScope($scope);

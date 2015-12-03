@@ -53,7 +53,7 @@
     }));
 
     function createController() {
-      return controller('loadBalancersTableController', { $scope: scope });
+      return controller('LoadBalancersTableController', { $scope: scope });
     }
 
     it('should initialize correctly', function() {
@@ -67,11 +67,6 @@
     it('should initialize scope of batch actions', function() {
       createController();
       expect(batchActionsService.initScope).toHaveBeenCalledWith(scope);
-    });
-
-    it('should set path properly', function() {
-      var path = staticUrl + 'dashboard/project/lbaasv2/loadbalancers/';
-      expect(createController().path).toEqual(path);
     });
 
     it('should invoke lbaasv2 apis', function() {

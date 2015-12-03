@@ -69,6 +69,9 @@
       spec: null,
 
       subnets: [],
+      listenerProtocols: ['TCP', 'HTTP', 'HTTPS'],
+      poolProtocols: ['TCP', 'HTTP', 'HTTPS'],
+      methods: ['ROUND_ROBIN', 'LEAST_CONNECTIONS', 'SOURCE_IP'],
 
       /**
        * api methods for UI controllers
@@ -91,10 +94,24 @@
       var promise;
 
       model.spec = {
-        name: null,
-        description: null,
-        ip: null,
-        subnet: null
+        loadbalancer: {
+          name: null,
+          description: null,
+          ip: null,
+          subnet: null
+        },
+        listener: {
+          name: 'Listener 1',
+          description: null,
+          protocol: null,
+          port: null
+        },
+        pool: {
+          name: 'Pool 1',
+          description: null,
+          protocol: null,
+          method: null
+        }
       };
 
       if (model.initializing) {
@@ -137,13 +154,26 @@
     function createLoadBalancer() {
       var finalSpec = angular.copy(model.spec);
 
-      for (var key in finalSpec) {
-        if (finalSpec.hasOwnProperty(key) && finalSpec[key] === null) {
-          delete finalSpec[key];
-        }
+      // Listener requires protocol and port
+      if (!finalSpec.listener.protocol || !finalSpec.listener.port) {
+        delete finalSpec.listener;
       }
 
-      finalSpec.subnet = finalSpec.subnet.id;
+      // Pool requires protocol and method, and also the listener
+      if (!finalSpec.listener || !finalSpec.pool.protocol || !finalSpec.pool.method) {
+        delete finalSpec.pool;
+      }
+
+      // Delete null properties
+      angular.forEach(finalSpec, function(group, groupName) {
+        angular.forEach(group, function(value, key) {
+          if (value === null) {
+            delete finalSpec[groupName][key];
+          }
+        });
+      });
+
+      finalSpec.loadbalancer.subnet = finalSpec.loadbalancer.subnet.id;
 
       return lbaasv2API.createLoadBalancer(finalSpec);
     }
@@ -160,7 +190,7 @@
         index += 1;
         name = prefix + index;
       } while (name in existingNames);
-      model.spec.name = name;
+      model.spec.loadbalancer.name = name;
     }
 
     function onGetSubnets(response) {

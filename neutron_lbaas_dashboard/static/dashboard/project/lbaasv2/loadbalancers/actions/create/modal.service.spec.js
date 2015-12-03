@@ -28,9 +28,7 @@
     beforeEach(module(function($provide) {
       var response = {
         data: {
-          loadbalancer: {
-            id: '1'
-          }
+          id: '1'
         }
       };
       modal = {
