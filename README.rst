@@ -25,6 +25,15 @@ Howto
 Use devstack. Create a local.conf file similar to:
 (Thanks amotoki for providing most of this!)
 
+Note that after running devstack you'll have to make Horizon re-collectstatic and re-compress until
+https://review.openstack.org/#/c/257744/
+is merged using the commands
+cd /opt/stack/horizon
+python manage.py collectstatic --noinput
+python manage.py compress --force
+sudo service apache2 restart
+
+
 .. code-block:: python
 
     [[local|localrc]]
